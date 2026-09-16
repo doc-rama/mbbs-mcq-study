@@ -19,3 +19,4 @@ Built from the supplied 12,004-question workbook.
 - No duplicate questions within a mock
 
 Deploy as a static site to Vercel/Netlify. No build command is required.
+Updated for Vercel deployment.
