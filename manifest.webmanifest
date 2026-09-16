@@ -1,11 +1,11 @@
 {
-  "name": "MCQs001 \u2014 MBBS MCQ Question Bank",
-  "short_name": "MCQs001",
+  "name": "MCQ 001 \u2014 MBBS MCQ Question Bank",
+  "short_name": "MCQ 001",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0b1220",
   "theme_color": "#0f172a",
-  "description": "12,004 JNMC EQB MBBS MCQs organised by subject and chapter.",
+  "description": "MBBS MCQ Question Bank organised by subject and chapter.",
   "icons": [
     {
       "src": "icon-192.png",

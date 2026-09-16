@@ -5,34 +5,34 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="MCQs001">
+<meta name="apple-mobile-web-app-title" content="MCQ 001">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<title>MCQs001 — MBBS MCQ Question Bank</title>
+<title>MCQ 001 — MBBS MCQ Question Bank</title>
 <style>
 :root{
   --bg:#f6f7fb;--card:#fff;--text:#111827;--muted:#64748b;--line:#e2e8f0;
-  --a:#2563eb;--good:#16a34a;--bad:#dc2626;--soft:#eef4ff
+  --a:#2563eb;--good:#16a34a;--bad:#dc2626;--soft:#eef4ff;--panel:#fbfcfe;--panel2:#f1f4f8
 }
 [data-theme=dark]{
   --bg:#0b1220;--card:#111827;--text:#f8fafc;--muted:#94a3b8;--line:#243244;
-  --soft:#101c33
+  --soft:#101c33;--panel:#151e2c;--panel2:#1c2738
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
-.app{max-width:1050px;margin:auto;padding:16px 16px 88px}
+body{margin:0;background:linear-gradient(180deg,var(--bg),var(--panel2) 55%,var(--bg));color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+.app{max-width:1180px;margin:auto;padding:18px 20px 92px}
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .brand-wrap{display:flex;align-items:center;gap:10px;min-width:0}
 .app-icon{width:52px;height:52px;border-radius:14px;object-fit:cover;box-shadow:0 4px 14px #0002}
 .brand{font-size:23px;font-weight:900;line-height:1.1}
 .small{font-size:12px}.muted{color:var(--muted)}
 nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center}
-nav button{flex:1;max-width:180px;padding:13px 4px;border:0;background:none;color:var(--muted);font-size:14px}
+nav button{flex:1;max-width:190px;min-height:52px;padding:13px 8px;border:0;background:transparent;color:var(--muted);font-size:15px;font-weight:850;cursor:pointer;border-radius:12px}
 nav .active{color:var(--a);font-weight:800}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:13px}
-.hero{background:linear-gradient(135deg,#1d4ed8,#4338ca);color:#fff;border:0;padding:25px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 3px 14px #0f172a0a}.card .card{background:var(--panel);box-shadow:none}
+.hero{background:linear-gradient(135deg,#1d4ed8,#4338ca);color:#fff;border:0;padding:24px;box-shadow:0 8px 24px #1e3a8a22}
 .hero .muted{color:#dbeafe}
 .hero h1{font-size:clamp(30px,6vw,52px);line-height:1.04;margin:13px 0}
 .hero .eyebrow{letter-spacing:.05em;font-size:13px;font-weight:800}
@@ -53,13 +53,13 @@ nav .active{color:var(--a);font-weight:800}
 .chapter-body{padding:0 16px 16px;border-top:1px solid var(--line)}
 .chapter.collapsed .chapter-body{display:none}
 .chev{font-size:18px;transition:transform .15s}.chapter:not(.collapsed) .chev{transform:rotate(180deg)}
-.metric-line{font-size:13px;color:var(--muted)}
-.study-choice{width:100%;text-align:left;padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);cursor:pointer}
-.study-choice b{display:block;font-size:17px}.study-choice span{font-size:12px;color:var(--muted)}
+.metric-line{font-size:12px;color:var(--muted)}
+.study-choice{width:100%;text-align:left;padding:13px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);cursor:pointer}
+.study-choice b{display:block;font-size:15px}.study-choice span{font-size:11px;color:var(--muted)}
 .option{width:100%;text-align:left;margin:6px 0;padding:14px;border:2px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);cursor:pointer}
 .option.selected{border-color:var(--a)}.option.correct{border-color:var(--good);background:#16a34a18}.option.wrong{border-color:var(--bad);background:#dc262618}
 .q{font-size:18px;font-weight:750;line-height:1.5}
-.answer-box{border:1px solid #16a34a66;background:#16a34a12;border-radius:14px;padding:14px;margin-top:12px}
+.answer-box{border:1px solid #16a34a66;background:#16a34a12;border-radius:14px;padding:14px;margin-top:12px}.answer-box .btn{display:block;margin-left:auto}
 .answer-option{border:2px solid var(--good)!important;background:#16a34a18!important}
 input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text)}
 label{display:block;margin-bottom:7px}
@@ -73,11 +73,24 @@ label{display:block;margin-bottom:7px}
 a.feedback{color:var(--a);font-weight:800;text-decoration:none}
 footer{margin-top:14px}
 @media(max-width:600px){
+  .app{padding:12px 12px 88px}
   .stats{grid-template-columns:repeat(2,1fr)}
   .grid,.checks{grid-template-columns:1fr}
   .answer-summary{grid-template-columns:repeat(3,1fr)}
   .brand{font-size:20px}
+  .card{padding:14px;border-radius:16px}
+  nav button{font-size:14px;min-height:56px}
 }
+@media(min-width:900px){
+  main{max-width:1080px;margin:0 auto}
+  header{max-width:1080px;margin-left:auto;margin-right:auto}
+  footer{max-width:1080px;margin-left:auto;margin-right:auto}
+  .hero{padding:28px 32px}
+  .hero .row{gap:12px}
+  .option{padding:15px 17px}
+  .q{font-size:20px;max-width:950px}
+}
+
 @media(min-width:700px){
   nav{position:static;border:0;background:transparent;justify-content:flex-start;margin-bottom:12px}
   nav button{flex:0 0 auto;border-radius:10px}
@@ -88,10 +101,10 @@ footer{margin-top:14px}
 <div class="app">
 <header>
   <div class="brand-wrap">
-    <img class="app-icon" src="icon-192.png" alt="MCQs001 icon">
+    <img class="app-icon" src="icon-192.png" alt="MCQ 001 icon">
     <div>
-      <div class="brand">MCQs001</div>
-      <div class="small muted">Rama-001 + EQB</div>
+      <div class="brand">MCQ 001</div>
+      <div class="small muted">2022-001 + EQB</div>
     </div>
   </div>
   <button class="btn secondary" onclick="theme()" aria-label="Toggle theme">☾</button>
@@ -134,24 +147,37 @@ function selectedIds(filters){
   let out=[];filters.forEach(([s,c])=>out.push(...chapterIds(s,c)));return [...new Set(out)];
 }
 function navButtons(){
-  return [["home","⌂ Home"],["subjects","▦ Subjects"],["answers","✓ Answers"],["mock","📝 Mock"],["settings","⚙ Settings"]]
-    .map(([p,l])=>`<button class="${page==p?"active":""}" onclick="go('${p}')">${l}</button>`).join("");
+  return [["home","⌂","Home"],["subjects","","Subjects"],["answers","","Answers"],["mock","","Mock"],["settings","⚙","Settings"]]
+    .map(([p,icon,l])=>`<button class="${page==p?"active":""}" onclick="go('${p}')">${icon?icon+" ":""}${l}</button>`).join("");
 }
-function go(p){page=p;sel=null;checked=false;render()}
+let routeState={page:"home"};
+function routePush(state){routeState=state;history.pushState(state,"",location.pathname+location.search+(state.page?"#"+state.page:""));}
+function go(p){page=p;sel=null;checked=false;routePush({page:p});render()}
 function render(){
   nav.innerHTML=navButtons();
-  footer.innerHTML=`<section class="card about"><div class="small muted">MCQs001 • JNMC EQB question bank</div><div style="margin-top:7px">Feedback: <a class="feedback" href="https://www.instagram.com/sairama.exe" target="_blank" rel="noopener">sairama.exe</a></div></section>`;
-  if(page==="answersView"){renderAnswersView();return;} ({home,subjects:subjectsPage,answers:answersPage,practice,mock:mockPage,settings})[page]();
+  footer.innerHTML=`<section class="card about"><div class="small muted">MCQ 001 • JNMC EQB question bank</div><div style="margin-top:7px">Feedback: <a class="feedback" href="https://www.instagram.com/sairama.exe" target="_blank" rel="noopener">sairama.exe</a></div></section>`;
+  if(page==="answersView"){renderAnswersView();return;}
+  if(page==="subjectDetail" && routeState.subject){renderSubjectDetail(routeState.subject,false);return;}
+  ({home,subjects:subjectsPage,answers:answersPage,practice,mock:mockPage,settings})[page]();
 }
+window.addEventListener("popstate",e=>{
+  const r=e.state||{page:"home"};routeState=r;page=r.page||"home";sel=null;checked=false;
+  if(r.page==="practice"){ids=r.ids||ids;idx=Math.min(r.idx||0,Math.max(0,ids.length-1));practiceTitle=r.title||practiceTitle}
+  if(r.page==="answersView"){answerIds=r.ids||answerIds;answerIdx=Math.min(r.idx||0,Math.max(0,answerIds.length-1));answerSubject=r.subject||answerSubject;answerChapter=r.chapter||answerChapter;answerTitle=r.title||answerTitle}
+  if(r.page==="mock"){mock=r.mock||mock}
+  render();
+});
+if(!history.state){history.replaceState({page:"home"},"",location.pathname+location.search);routeState={page:"home"}}
+
 
 function home(){
   const n=Object.keys(st.attempts).length,c=Object.values(st.attempts).filter(x=>x.latestResult=="correct").length,p=Math.round(n/Q.length*100);
   const seen=Object.keys(st.answerSeen||{}).length;
   main.innerHTML=`<section class="card hero">
-    <div class="eyebrow">RAMA-001 + EQB</div>
+    
     <h1>MBBS MCQ QUESTION BANK</h1>
-    <p style="font-size:18px;margin:0 0 17px"><b>Because apparently 12,004 Qs weren't enough.</b></p>
-    <p class="muted" style="font-size:13px">12,004 questions from the JNMC Electronic Question Bank.</p>
+    <p style="font-size:18px;margin:0 0 17px"><b>Coz 12,004 Qs weren't enough.</b></p>
+    <p class="muted" style="font-size:13px">i am going add random messages here with every update because i can hahaha</p>
     <div class="row">
       <button class="btn" onclick="startRandom(20)">Start Quick Practice</button>
       <button class="btn green" onclick="go('answers')">✓ Answers</button>
@@ -171,13 +197,13 @@ function home(){
   </section>
   <section class="card"><h3>Subjects</h3>${Object.keys(S).map(s=>`<div class="subject"><span><b>${esc(s)}</b><br><span class="small muted">${Object.values(S[s]).flat().length.toLocaleString()} questions • ${Object.keys(S[s]).length} chapters</span></span><button class="btn secondary" onclick='openSubject(${JSON.stringify(s)})'>Open</button></div>`).join("")}</section>`;
 }
-function openSubject(s){renderSubjectDetail(s)}
+function openSubject(s){routePush({page:"subjectDetail",subject:s});page="subjectDetail";render()}
 function subjectsPage(){
-  main.innerHTML=`<section class="card"><h2>Subjects</h2><p class="muted">Tap a subject to see its chapters. Each chapter expands into its own study choices.</p>${Object.keys(S).map(s=>`<div class="card" style="box-shadow:none"><div class="row" style="justify-content:space-between"><h3>${esc(s)}</h3><span class="small muted">${Object.values(S[s]).flat().length.toLocaleString()} questions</span></div><button class="btn secondary" onclick='renderSubjectDetail(${JSON.stringify(s)})'>View Chapters</button></div>`).join("")}</section>`;
+  main.innerHTML=`<section class="card"><h2>Subjects</h2><p class="muted">Tap a subject to see its chapters. Each chapter expands into its own study choices.</p>${Object.keys(S).map(s=>`<div class="card" style="box-shadow:none"><div class="row" style="justify-content:space-between"><h3>${esc(s)}</h3><span class="small muted">${Object.values(S[s]).flat().length.toLocaleString()} questions</span></div><button class="btn secondary" onclick='openSubject(${JSON.stringify(s)})'>View Chapters</button></div>`).join("")}</section>`;
 }
-function renderSubjectDetail(s){
-  page="subjects";sel=null;checked=false;
-  main.innerHTML=`<section class="card"><div class="row"><button class="btn secondary" onclick="subjectsPage()">← Subjects</button><h2 style="margin:0">${esc(s)}</h2></div>
+function renderSubjectDetail(s,push=true){
+  page="subjectDetail";sel=null;checked=false;routeState={page:"subjectDetail",subject:s};if(push)history.pushState(routeState,"",location.pathname+location.search+"#subjectDetail");
+  main.innerHTML=`<section class="card"><div class="row"><button class="btn secondary" onclick="go('subjects')">← Subjects</button><h2 style="margin:0">${esc(s)}</h2></div>
   <p class="muted">Tap a chapter to expand its study options.</p>
   ${Object.keys(S[s]).map(c=>chapterCard(s,c)).join("")}</section>`;
 }
@@ -248,13 +274,13 @@ function check(){
   st.attempts[q.id]={attemptCount:o.attemptCount+1,latestAnswer:sel,latestResult:r,firstAttemptResult:o.firstAttemptResult||r,lastAttemptedAt:new Date().toISOString()};
   st.xp+=(r=="correct"?10:3);save();checked=true;render();
 }
-function next(){if(idx<ids.length-1){idx++;sel=null;checked=false;render()}else go("subjects")}
+function next(){if(idx<ids.length-1){idx++;sel=null;checked=false;routeState={page:"practice",ids:[...ids],idx,title:practiceTitle};history.replaceState(routeState,"",location.pathname+location.search+"#practice");render()}else go("subjects")}
 function bookmark(){let id=by[ids[idx]].id,i=st.bookmarks.indexOf(id);i<0?st.bookmarks.push(id):st.bookmarks.splice(i,1);save();render()}
 
 /* ---------------- Answers / rapid revision ---------------- */
 function answersPage(){
   const subjects=Object.keys(S);
-  const currentSubject=window.answerSubject||"";
+  const currentSubject=answerSubject||"";
   const chapterOptions=currentSubject?Object.keys(S[currentSubject]):[];
   main.innerHTML=`<section class="card">
     <h2>Answers</h2>
@@ -267,7 +293,7 @@ function answersPage(){
     <label><b>Chapter</b></label>
     <select id="ansChapter" ${currentSubject?"":"disabled"}>
       <option value="">${currentSubject?"Select a chapter":"Select a subject first"}</option>
-      ${chapterOptions.map(c=>`<option ${window.answerChapter===c?"selected":""}>${esc(c)}</option>`).join("")}
+      ${chapterOptions.map(c=>`<option ${answerChapter===c?"selected":""}>${esc(c)}</option>`).join("")}
     </select>
     <div class="row" style="margin-top:12px">
       <button class="btn green" onclick="beginSelectedAnswers('continue')">✓ Review Answers</button>
@@ -279,11 +305,11 @@ function answersPage(){
 function answerChapterList(s){
   return `<section class="card"><h3>${esc(s)} — Answer Coverage</h3>${Object.keys(S[s]).map(c=>{
     const total=S[s][c].length,seen=seenCount(s,c),pct=total?Math.round(seen/total*100):0;
-    return `<div class="subject"><span><b>${esc(c)}</b><br><span class="small muted">${seen}/${total} answers seen • ${pct}%</span><div class="progress" style="width:180px;margin-top:6px"><i style="width:${pct}%"></i></div></span><button class="btn green" onclick='startAnswers(${JSON.stringify(s)},${JSON.stringify(c)},"continue")'>Review</button></div>`;
+    return `<div class="subject"><span><b>${esc(c)}</b><br><span class="small muted">${seen}/${total} answers seen • ${pct}%</span><div class="progress" style="width:180px;margin-top:6px"><i style="width:${pct}%"></i></div></span><div class="row"><button class="btn green" onclick='startAnswers(${JSON.stringify(s)},${JSON.stringify(c)},"continue")'>Review</button><button class="btn secondary" onclick='resetAnswerReview(${JSON.stringify(s)},${JSON.stringify(c)})'>Reset Review</button></div></div>`;
   }).join("")}</section>`;
 }
 function answerSubjectChanged(){
-  window.answerSubject=document.getElementById("ansSubject").value;window.answerChapter="";answersPage();
+  answerSubject=document.getElementById("ansSubject").value;answerChapter="";answersPage();
 }
 function beginSelectedAnswers(mode){
   const s=document.getElementById("ansSubject").value,c=document.getElementById("ansChapter").value;
@@ -298,8 +324,21 @@ function startAnswers(s,c,mode="continue"){
     const unseen=a.filter(id=>!st.answerSeen[id]);
     if(unseen.length)a=[...unseen,...a.filter(id=>st.answerSeen[id])];
   }
-  answerIds=a;answerIdx=0;answerSubject=s;answerChapter=c;answerTitle=`${s} • ${c}`;page="answersView";renderAnswersView();
+  answerIds=a;answerIdx=0;answerSubject=s;answerChapter=c;answerTitle=`${s} • ${c}`;page="answersView";routeState={page:"answersView",ids:[...a],idx:0,subject:s,chapter:c,title:answerTitle};history.pushState(routeState,"",location.pathname+location.search+"#answersView");renderAnswersView();
 }
+function resetAnswerReview(s,c){
+  if(!confirm(`Reset answer review for ${s} • ${c}?\n\nThis will mark all answers in this chapter as unseen. Practice attempts, accuracy, saved questions, XP and mock history will not be affected.`))return;
+  chapterIds(s,c).forEach(id=>delete st.answerSeen[id]);save();
+  answerSubject=s;answerChapter=c;answersPage();
+}
+function answersKeyboard(e){
+  if(page!=="answersView")return;
+  const tag=(e.target?.tagName||"").toLowerCase();
+  if(tag==="input"||tag==="textarea"||tag==="select"||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.key==="ArrowRight"){e.preventDefault();answerNext()}
+  else if(e.key==="ArrowLeft"){e.preventDefault();answerPrev()}
+}
+document.addEventListener("keydown",answersKeyboard);
 function renderAnswersView(){
   if(!answerIds.length){main.innerHTML=`<section class="card"><h2>Answers</h2><p>No questions available.</p><button class="btn" onclick="go('answers')">Back to Answers</button></section>`;return}
   const q=by[answerIds[answerIdx]];
@@ -318,8 +357,8 @@ function renderAnswersView(){
     </div>
   </section>`;
 }
-function answerNext(){if(answerIdx<answerIds.length-1){answerIdx++;renderAnswersView()}else go("answers")}
-function answerPrev(){if(answerIdx>0){answerIdx--;renderAnswersView()}}
+function answerNext(){if(answerIdx<answerIds.length-1){answerIdx++;routeState={page:"answersView",ids:[...answerIds],idx:answerIdx,subject:answerSubject,chapter:answerChapter,title:answerTitle};history.replaceState(routeState,"",location.pathname+location.search+"#answersView");renderAnswersView()}else go("answers")}
+function answerPrev(){if(answerIdx>0){answerIdx--;routeState={page:"answersView",ids:[...answerIds],idx:answerIdx,subject:answerSubject,chapter:answerChapter,title:answerTitle};history.replaceState(routeState,"",location.pathname+location.search+"#answersView");renderAnswersView()}}
 async function copyAnswerCurrent(){
   const q=by[answerIds[answerIdx]],text=q.question+"\n\n"+q.options.map((o,i)=>`${String.fromCharCode(65+i)}. ${o}`).join("\n")+"\n\nCorrect option: "+q.answer;
   try{
@@ -354,7 +393,7 @@ function makeSelectedMock(){
   let n=+document.getElementById("mockN").value;
   if(!pool.length)return alert("No questions available.");
   pool.sort(()=>Math.random()-.5);n=Math.min(n,pool.length);
-  mock={ids:pool.slice(0,n),i:0,a:{},pairs};render();
+  mock={ids:pool.slice(0,n),i:0,a:{},pairs};page="mock";routeState={page:"mock",mock:JSON.parse(JSON.stringify(mock))};history.pushState(routeState,"",location.pathname+location.search+"#mock");render();
 }
 function mockTest(){
   const q=by[mock.ids[mock.i]],a=mock.a[q.id];
@@ -377,11 +416,12 @@ function submitMock(){
 function settings(){
   main.innerHTML=`<section class="card"><h2>Settings & Data</h2><p class="muted">Progress, bookmarks and answer coverage are stored locally on this device/browser.</p><button class="btn" onclick="exportData()">Export Progress</button> <label class="btn secondary" style="display:inline-block">Import<input type="file" accept=".json" style="display:none" onchange="importData(event)"></label></section>
   <section class="card"><h3>Appearance</h3><button class="btn secondary" onclick="setTheme('light')">Light</button> <button class="btn secondary" onclick="setTheme('dark')">Dark</button> <button class="btn secondary" onclick="setTheme('system')">System</button></section>
-  <section class="card"><h3>About</h3><p class="muted">MCQs001 is a personal study interface built around 12,004 questions from the JNMC Electronic Question Bank (EQB). It is not presented as an official JNMC product.</p><p><b>Feedback: <a class="feedback" href="https://www.instagram.com/sairama.exe" target="_blank" rel="noopener">sairama.exe</a></b></p></section>
+  <section class="card"><h3>Extra Study Material</h3><p class="muted">Additional study material, notes, PDFs and other useful resources will be added here from time to time.</p><a class="btn secondary" style="display:inline-block;text-decoration:none" href="https://drive.google.com/drive/folders/134vaF0VBmnaIus1omCM-ETncW2UuED39?usp=sharing" target="_blank" rel="noopener">Open Extra Study Material →</a></section>
+  <section class="card"><h3>About</h3><p class="muted">MCQ 001 is a personal study interface built around the JNMC Electronic Question Bank (EQB). It is not presented as an official JNMC product.</p><p><b>Feedback: <a class="feedback" href="https://www.instagram.com/sairama.exe" target="_blank" rel="noopener">sairama.exe</a></b></p></section>
   <section class="card"><button class="btn danger" onclick="if(confirm('Reset all study data?')){localStorage.removeItem(K);location.reload()}">Reset All Study Data</button></section>`;
 }
 function exportData(){
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(st)],{type:"application/json"}));a.download="mcqs001-progress.json";a.click();
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(st)],{type:"application/json"}));a.download="mcq001-progress.json";a.click();
 }
 function importData(e){
   const file=e.target.files?.[0];if(!file)return;
