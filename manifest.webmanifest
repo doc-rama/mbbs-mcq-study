@@ -1,1 +1,23 @@
-{"name": "RAMA — MBBS MCQ Study", "short_name": "RAMA MBBS", "start_url": "./", "display": "standalone", "background_color": "#0b1220", "theme_color": "#0f172a", "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"}, {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}]}
+{
+  "name": "MCQs001 \u2014 MBBS MCQ Question Bank",
+  "short_name": "MCQs001",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0f172a",
+  "description": "12,004 JNMC EQB MBBS MCQs organised by subject and chapter.",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
