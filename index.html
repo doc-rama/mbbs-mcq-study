@@ -61,8 +61,8 @@ function selectedIds(filters){
 }
 function go(p){page=p;sel=null;checked=false;render()}
 function render(){
-  nav.innerHTML=["home","subjects","practice","review","mock","settings"].map(p=>`<button class="${page==p?"active":""}" onclick="go('${p}')">${({home:"⌂ Home",subjects:"▦ Subjects",practice:"▶ Practice",review:"✓ Review",mock:"📝 Mock",settings:"⚙ Settings"})[p]}</button>`).join("");
-  ({home:home,subjects:subjectsPage,practice:practice,mock:mockPage,review:review,settings:settings})[page]();
+  nav.innerHTML=["home","subjects","practice","mock","settings"].map(p=>`<button class="${page==p?"active":""}" onclick="go('${p}')">${({home:"⌂ Home",subjects:"▦ Subjects",practice:"▶ Practice",mock:"📝 Mock",settings:"⚙ Settings"})[p]}</button>`).join("");
+  ({home:home,subjects:subjectsPage,practice:practice,mock:mockPage,settings:settings})[page]();
 }
 
 function home(){
@@ -136,10 +136,6 @@ function check(){
 function next(){if(idx<ids.length-1){idx++;sel=null;checked=false;render()}else go("subjects")}
 function bookmark(){let id=by[ids[idx]].id,i=st.bookmarks.indexOf(id);i<0?st.bookmarks.push(id):st.bookmarks.splice(i,1);save();render()}
 
-function review(){
-  main.innerHTML=`<section class="card"><h2>Chapter-specific Review & Analytics</h2><p class="muted">Every chapter shows its own progress, accuracy, streak and mock history.</p>
-  ${Object.keys(S).map(s=>`<details class="card" style="box-shadow:none"><summary><b>${esc(s)}</b></summary>${Object.keys(S[s]).map(c=>{const t=chapterStats(s,c);return `<div class="subject"><span><b>${esc(c)}</b><br><span class="small muted">${t.progress}% complete • ${t.accuracy}% accuracy • 🔥 ${t.streak} day streak</span></span><button class="btn secondary" onclick='showChapterAnalytics(${JSON.stringify(s)},${JSON.stringify(c)})'>Analytics</button></div>`}).join("")}</details>`).join("")}</section>`;
-}
 function mockPage(){
   if(mock){mockTest();return}
   const options=Object.keys(S).map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join("");
