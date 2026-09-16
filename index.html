@@ -29,7 +29,7 @@ header{display:flex;justify-content:space-between;align-items:center;margin-bott
 .brand{font-size:23px;font-weight:900;line-height:1.1}
 .small{font-size:12px}.muted{color:var(--muted)}
 nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center}
-nav button{flex:1;max-width:190px;min-height:52px;padding:13px 8px;border:0;background:transparent;color:var(--muted);font-size:15px;font-weight:850;cursor:pointer;border-radius:12px}
+nav button{flex:1;max-width:190px;min-height:58px;padding:14px 8px;border:0;background:transparent;color:var(--muted);font-size:16px;font-weight:900;cursor:pointer;border-radius:12px}
 nav .active{color:var(--a);font-weight:800}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 3px 14px #0f172a0a}.card .card{background:var(--panel);box-shadow:none}
 .hero{background:linear-gradient(135deg,#1d4ed8,#4338ca);color:#fff;border:0;padding:24px;box-shadow:0 8px 24px #1e3a8a22}
@@ -41,6 +41,10 @@ nav .active{color:var(--a);font-weight:800}
 .green{background:var(--good);color:white}
 .danger{background:var(--bad)}
 .row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.question-actions{justify-content:space-between}
+.question-actions .btn{flex:1;min-width:0}
+.small-nav{font-size:12px;padding:8px 10px}
+.small-nav:disabled{opacity:.45;cursor:not-allowed}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .stat{text-align:center;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:15px}
@@ -61,6 +65,11 @@ nav .active{color:var(--a);font-weight:800}
 .q{font-size:18px;font-weight:750;line-height:1.5}
 .answer-box{border:1px solid #16a34a66;background:#16a34a12;border-radius:14px;padding:14px;margin-top:12px}.answer-box .btn{display:block;margin-left:auto}
 .answer-option{border:2px solid var(--good)!important;background:#16a34a18!important}
+ .comment-box{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel2)}
+.comment-box h4{margin:0 0 8px;font-size:14px}
+.comment-box textarea{width:100%;min-height:92px;resize:vertical;padding:11px;border-radius:11px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:14px;line-height:1.45}
+.comment-text{white-space:pre-wrap;font-size:14px;line-height:1.5;margin:0}
+.comment-count{text-align:right;margin-top:5px}
 input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text)}
 label{display:block;margin-bottom:7px}
 .checks{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
@@ -79,7 +88,7 @@ footer{margin-top:14px}
   .answer-summary{grid-template-columns:repeat(3,1fr)}
   .brand{font-size:20px}
   .card{padding:14px;border-radius:16px}
-  nav button{font-size:14px;min-height:56px}
+  nav button{font-size:15px;min-height:60px}
 }
 @media(min-width:900px){
   main{max-width:1080px;margin:0 auto}
@@ -119,6 +128,16 @@ const Q=[{"id":"2b9bd79425cbff36","subject":"MEDICINE","chapter":"Endocrinology"
 const by=Object.fromEntries(Q.map(x=>[x.id,x])), all=Q.map(x=>x.id);
 let st=JSON.parse(localStorage.getItem(K)||"null")||{attempts:{},bookmarks:[],xp:0,mockHistory:[],answerSeen:{}};
 st.attempts=st.attempts||{}; st.bookmarks=st.bookmarks||[]; st.mockHistory=st.mockHistory||[]; st.answerSeen=st.answerSeen||{};
+let comments={};
+const COMMENT_DB="mcq001_comments_v1";
+let commentDB=null;
+function openCommentDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(COMMENT_DB,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains("comments"))r.result.createObjectStore("comments")};r.onsuccess=()=>{commentDB=r.result;resolve(r.result)};r.onerror=()=>reject(r.error)});}
+function loadComments(){return openCommentDB().then(db=>new Promise((resolve,reject)=>{const tx=db.transaction("comments","readonly"),req=tx.objectStore("comments").getAll();const keysReq=tx.objectStore("comments").getAllKeys();req.onsuccess=()=>{keysReq.onsuccess=()=>{comments={};keysReq.result.forEach((k,i)=>{comments[k]=req.result[i]});resolve()};keysReq.onerror=()=>reject(keysReq.error)};req.onerror=()=>reject(req.error)})).catch(()=>{comments={}})}
+function putComment(id,value){comments[id]=value;return commentDB?new Promise((resolve,reject)=>{const tx=commentDB.transaction("comments","readwrite");tx.objectStore("comments").put(value,id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)}):Promise.resolve()}
+function removeComment(id){delete comments[id];return commentDB?new Promise((resolve,reject)=>{const tx=commentDB.transaction("comments","readwrite");tx.objectStore("comments").delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)}):Promise.resolve()}
+function allComments(){return commentDB?new Promise((resolve,reject)=>{const tx=commentDB.transaction("comments","readonly"),store=tx.objectStore("comments"),req=store.getAll(),keys=store.getAllKeys();req.onsuccess=()=>{keys.onsuccess=()=>{const out={};keys.result.forEach((k,i)=>out[k]=req.result[i]);resolve(out)};keys.onerror=()=>reject(keys.error)};req.onerror=()=>reject(req.error)}):Promise.resolve({...comments})}
+function importComments(obj){return openCommentDB().then(db=>new Promise((resolve,reject)=>{const tx=db.transaction("comments","readwrite"),store=tx.objectStore("comments");store.clear();comments={};Object.entries(obj||{}).forEach(([id,v])=>{if(typeof v==="string"&&v.trim()){store.put(v,id);comments[id]=v}});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})).catch(()=>{})}
+
 let page="home", ids=[], idx=0, sel=null, checked=false, mock=null, practiceTitle="", answerTitle="", answerSubject="", answerChapter="", answerIds=[], answerIdx=0;
 
 function save(){localStorage.setItem(K,JSON.stringify(st))}
@@ -176,8 +195,8 @@ function home(){
   main.innerHTML=`<section class="card hero">
     
     <h1>MBBS MCQ QUESTION BANK</h1>
-    <p style="font-size:18px;margin:0 0 17px"><b>Coz 12,004 Qs weren't enough.</b></p>
-    <p class="muted" style="font-size:13px">i am going add random messages here with every update because i can hahaha</p>
+    <p style="font-size:18px;margin:0 0 17px"><b>coz 12,004 Qs weren't enough.</b></p>
+    <p class="muted" style="font-size:13px">(i am going to add random messages here with every update because i can hahaha)</p>
     <div class="row">
       <button class="btn" onclick="startRandom(20)">Start Quick Practice</button>
       <button class="btn green" onclick="go('answers')">✓ Answers</button>
@@ -247,17 +266,41 @@ function chapterStudy(s,c,type){
   setPractice(a,`${s} • ${c} • ${type}`);
 }
 function setPractice(a,title=""){
-  ids=[...a].sort(()=>Math.random()-.5);idx=0;sel=null;checked=false;page="practice";practiceTitle=title;render();
+  ids=[...a].sort(()=>Math.random()-.5);idx=0;sel=null;checked=false;page="practice";practiceTitle=title;routePush({page:"practice",ids:[...ids],idx:0,title:practiceTitle});render();
 }
 function startRandom(n){setPractice([...all].sort(()=>Math.random()-.5).slice(0,n),"Random practice")}
 function practice(){
   if(!ids.length){main.innerHTML=`<section class="card"><h2>${esc(practiceTitle||"Practice")}</h2><p>No questions match this selection.</p><button class="btn" onclick="go('subjects')">Back to Subjects</button></section>`;return}
-  const q=by[ids[idx]],saved=st.bookmarks.includes(q.id);
-  main.innerHTML=`<section class="card"><div class="row" style="justify-content:space-between"><span class="small muted">${esc(q.subject)} • ${esc(q.chapter)}</span><span class="small muted">${idx+1}/${ids.length}</span></div>
+  const q=by[ids[idx]],saved=st.bookmarks.includes(q.id),comment=comments[q.id]||"";
+  const previous=idx>0;
+  main.innerHTML=`<section class="card"><div class="row" style="justify-content:space-between;align-items:center"><span class="small muted">${esc(q.subject)} • ${esc(q.chapter)}</span><span class="small muted">${idx+1}/${ids.length}</span></div>
+  <div class="row" style="justify-content:flex-end;margin-top:6px"><button class="btn secondary small-nav" onclick="previousQuestion()" ${previous?"":"disabled"}>← Previous Question</button></div>
   <p class="small muted">${esc(practiceTitle)}</p><p class="q">${esc(q.question)}</p>
   ${q.options.map((o,i)=>{let l=String.fromCharCode(65+i),cl="option"+(sel==l?" selected":"")+(checked&&l==q.answer?" correct":"")+(checked&&sel==l&&l!=q.answer?" wrong":"");return `<button class="${cl}" ${checked?"disabled":""} onclick="choose('${l}')"><b>${l}.</b> ${esc(o)||"<span class='muted'>(blank)</span>"}</button>`}).join("")}
-  <div class="row"><button class="btn" onclick="check()">Check Answer</button><button class="btn secondary" onclick="copyCurrent(${checked})">${checked?"📋 Copy with Answer":"📋 Copy Question"}</button><button class="btn secondary" onclick="bookmark()">${saved?"★ Saved":"☆ Save"}</button></div>
-  ${checked?`<section class="answer-box"><b>${sel==q.answer?"✅ Correct":"❌ Incorrect"}</b><p>Correct option: <b>${q.answer}</b></p><button class="btn" onclick="next()">Next Question →</button></section>`:""}</section>`;
+  <div class="row question-actions">
+    <button class="btn secondary" onclick="bookmark()">${saved?"★ Saved":"☆ Save"}</button>
+    <button class="btn secondary" onclick="copyCurrent(${checked})">${checked?"📋 Copy with Answer":"📋 Copy Question"}</button>
+    ${checked?`<button class="btn" onclick="next()">Next Question →</button>`:`<button class="btn" onclick="check()">Check Answer</button>`}
+  </div>
+  ${saved?`<section class="comment-box"><h4>Comments</h4>${comment?`<p class="comment-text">${esc(comment)}</p><div class="row" style="margin-top:9px"><button class="btn secondary" onclick="editComment()">Edit</button><button class="btn secondary" onclick="deleteComment()">Delete</button></div>`:`<button class="btn secondary" onclick="editComment()">+ Add a comment</button>`}</section>`:""}
+  ${checked?`<section class="answer-box"><b>${sel==q.answer?"✅ Correct":"❌ Incorrect"}</b><p>Correct option: <b>${q.answer}</b></p></section>`:""}</section>`;
+}
+function previousQuestion(){if(idx>0){idx--;sel=null;checked=false;routeState={page:"practice",ids:[...ids],idx,title:practiceTitle};history.replaceState(routeState,"",location.pathname+location.search+"#practice");render()}}
+function editComment(){
+  const q=by[ids[idx]],saved=st.bookmarks.includes(q.id);if(!saved)return;
+  const existing=comments[q.id]||"";
+  const box=document.querySelector('.comment-box');if(!box)return;
+  box.innerHTML=`<h4>Comments</h4><textarea id="commentInput" maxlength="5000" placeholder="Add relevant information about this question...">${esc(existing)}</textarea><div class="row" style="justify-content:space-between;align-items:center;margin-top:6px"><span id="commentCount" class="small muted">${existing.length.toLocaleString()} / 5,000</span><div class="row"><button class="btn secondary" onclick="cancelComment()">Cancel</button><button class="btn" onclick="saveComment()">Save Comment</button></div></div>`;
+  const ta=document.getElementById('commentInput');ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);ta.addEventListener('input',()=>{document.getElementById('commentCount').textContent=ta.value.length.toLocaleString()+' / 5,000'});
+}
+async function saveComment(){
+  const q=by[ids[idx]],ta=document.getElementById('commentInput');if(!ta)return;
+  const value=ta.value.trim();if(value)await putComment(q.id,value);else await removeComment(q.id);save();render();
+}
+function cancelComment(){render()}
+async function deleteComment(){
+  const q=by[ids[idx]];if(!comments[q.id])return;
+  if(confirm('Delete this comment?')){await removeComment(q.id);save();render()}
 }
 async function copyCurrent(withAnswer=false){
   const q=by[ids[idx]],text=q.question+"\n\n"+q.options.map((o,i)=>`${String.fromCharCode(65+i)}. ${o}`).join("\n")+(withAnswer?`\n\nCorrect option: ${q.answer}`:"");
@@ -414,22 +457,23 @@ function submitMock(){
 
 /* ---------------- Settings ---------------- */
 function settings(){
-  main.innerHTML=`<section class="card"><h2>Settings & Data</h2><p class="muted">Progress, bookmarks and answer coverage are stored locally on this device/browser.</p><button class="btn" onclick="exportData()">Export Progress</button> <label class="btn secondary" style="display:inline-block">Import<input type="file" accept=".json" style="display:none" onchange="importData(event)"></label></section>
+  main.innerHTML=`<section class="card"><h2>Settings & Data</h2><p class="muted">Progress, bookmarks and answer coverage are stored locally on this device/browser. Comments are stored locally in the browser as well.</p><div class="row"><button class="btn" onclick="exportData()">Export My Data</button> <label class="btn secondary" style="display:inline-block">Import Backup<input type="file" accept=".json" style="display:none" onchange="importData(event)"></label></div><p class="small muted" style="margin-bottom:0">Export a backup of your study progress and personal comments. Keep the file somewhere safe if you change devices or clear browser data.</p></section>
   <section class="card"><h3>Appearance</h3><button class="btn secondary" onclick="setTheme('light')">Light</button> <button class="btn secondary" onclick="setTheme('dark')">Dark</button> <button class="btn secondary" onclick="setTheme('system')">System</button></section>
   <section class="card"><h3>Extra Study Material</h3><p class="muted">Additional study material, notes, PDFs and other useful resources will be added here from time to time.</p><a class="btn secondary" style="display:inline-block;text-decoration:none" href="https://drive.google.com/drive/folders/134vaF0VBmnaIus1omCM-ETncW2UuED39?usp=sharing" target="_blank" rel="noopener">Open Extra Study Material →</a></section>
   <section class="card"><h3>About</h3><p class="muted">MCQ 001 is a personal study interface built around the JNMC Electronic Question Bank (EQB). It is not presented as an official JNMC product.</p><p><b>Feedback: <a class="feedback" href="https://www.instagram.com/sairama.exe" target="_blank" rel="noopener">sairama.exe</a></b></p></section>
   <section class="card"><button class="btn danger" onclick="if(confirm('Reset all study data?')){localStorage.removeItem(K);location.reload()}">Reset All Study Data</button></section>`;
 }
-function exportData(){
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(st)],{type:"application/json"}));a.download="mcq001-progress.json";a.click();
+async function exportData(){
+  const payload={...st,comments:await allComments(),exportedAt:new Date().toISOString(),app:"MCQ 001"};
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(payload)],{type:"application/json"}));a.download="mcq001-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 function importData(e){
   const file=e.target.files?.[0];if(!file)return;
-  const r=new FileReader;r.onload=()=>{
+  const r=new FileReader;r.onload=async()=>{
     try{
       const incoming=JSON.parse(r.result);
       st={attempts:incoming.attempts||{},bookmarks:incoming.bookmarks||[],xp:incoming.xp||0,mockHistory:incoming.mockHistory||[],answerSeen:incoming.answerSeen||{}};
-      save();render();alert("Imported");
+      save();await importComments(incoming.comments||{});render();alert("Imported");
     }catch{alert("Invalid file")}
   };r.readAsText(file);
 }
@@ -438,6 +482,6 @@ function setTheme(x){
   document.documentElement.dataset.theme=dark;localStorage.setItem("theme",x)
 }
 function theme(){setTheme(document.documentElement.dataset.theme=="dark"?"light":"dark")}
-setTheme(localStorage.getItem("theme")||"system");render();
+setTheme(localStorage.getItem("theme")||"system");loadComments().then(render);
 
 </script></body></html>

@@ -1,26 +1,18 @@
-# MCQs001 — V6
+# MCQ 001
 
-A static, mobile-first MBBS MCQ study app built from the supplied 12,004-question workbook.
+A personal MBBS MCQ study web app built around the supplied JNMC Electronic Question Bank (EQB) workbook.
 
-## V6
-- Brand: MCQs001
-- Header identity: Rama-001 + EQB
-- Homepage copy updated to the personal/student style requested.
-- Removed the old global Review tab.
-- Removed chapter day-streak display and the separate chapter Analytics button.
-- Subject → chapter screen now shows a compact chapter list; each chapter expands on tap.
-- Expanded chapter gives the four main study choices: All, Unanswered, Wrong, Saved.
-- Accuracy is compact secondary information.
-- Added green Answers mode for rapid revision with answers already revealed.
-- Answers supports subject + chapter selection and chapter-wise answers-seen coverage.
-- Added Review Unseen First / Continue behaviour.
-- Home replaces the old second mock action with Answers; Mock remains in bottom navigation.
-- Preserves the existing `mbbs_state_v2` local storage key so existing progress/bookmarks are retained.
-- Copy-to-clipboard uses Clipboard API with a browser fallback.
-- Added clickable `Feedback: sairama.exe` Instagram link.
-- Added V6 PWA manifest/service worker and keeps the personalized icon set.
+## Version 8
+- 12,004 MCQs preserved from the supplied question bank.
+- MCQ 001 / 2022-001 + EQB branding.
+- Cleaner, more compact mobile UI.
+- Practice controls: Save (left), Copy / Copy with Answer (centre), Check Answer / Next Question (right).
+- Previous Question control at the top-right of the practice screen.
+- System/browser back navigates through in-app history where applicable.
+- Personal comments can be added to saved questions, edited or deleted.
+- Comments are stored locally in browser IndexedDB, separately from the question bank and study-progress localStorage.
+- Export My Data creates a JSON backup containing progress, bookmarks, answer coverage, mock history and comments.
+- Import Backup restores that data.
+- PWA support for Android/iOS Add to Home Screen.
 
-## Source
-Questions are from the supplied JNMC Electronic Question Bank (EQB) workbook. The app is a personal study interface and is not presented as an official JNMC product.
-
-Deploy as a static site to Vercel/Netlify. No build command is required.
+This is a personal study interface and is not presented as an official JNMC product.
